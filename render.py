@@ -1,9 +1,11 @@
 from PIL import Image, ImageDraw, ImageFont
 from clock import get_clock, get_date
 
+screen_height, screen_length = 480, 800
+
 def create_image():
     # create an image
-    out = Image.new("RGB", (800, 480), (255, 255, 255))
+    out = Image.new("RGB", (screen_length, screen_height), (255, 255, 255))
 
     # get a font
     fnt = ImageFont.truetype("Pillow/Tests/fonts/FreeMono.ttf", 40)
@@ -11,7 +13,8 @@ def create_image():
     d = ImageDraw.Draw(out)
 
     # draw date and clock
-    d.multiline_text((10, 10), get_date(), font=fnt, fill=(0, 0, 0))
-    d.multiline_text((10, 50), get_clock(), font=fnt, fill=(0, 0, 0))
+    text = f"{get_date()}\n{get_clock()}"
+    d.multiline_text((screen_length/2, screen_height/2), text,
+                     font=fnt, fill=(0, 0, 0), anchor="mm")
 
     out.show()
