@@ -4,4 +4,4 @@ def get_clock():
     return f"{datetime.now().hour}:{datetime.now().minute:02}"
 
 def get_date():
-    return f"{datetime.now().strftime("%A %d. %B %Y")}"
+    return str(datetime.now().strftime("%A %d. %B %Y"))
