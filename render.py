@@ -4,7 +4,7 @@ import sys
 
 from PIL import Image, ImageDraw, ImageFont
 
-from clock import get_clock, get_date
+from clock import get_clock, get_date, get_weekday
 
 screen_height, screen_length = 480, 800
 
@@ -40,7 +40,7 @@ def create_image():
     d = ImageDraw.Draw(im=out)
 
     # draw date and clock
-    text = f"{get_date()}\n{get_clock()}"
+    text = f"{get_weekday()}{get_date()}{get_clock()}"
     d.multiline_text(xy=(screen_length / 2, screen_height / 2), text=text,
                      font=fnt, fill=(0, 0, 0), anchor="mm")
 
