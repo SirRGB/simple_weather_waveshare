@@ -9,6 +9,8 @@ from clock import get_clock, get_date, get_weekday
 screen_height, screen_length = 480, 800
 
 def display():
+    display_output = create_image()
+
     if sys.version_info[0] == 2:
         process = subprocess.Popen("cat /proc/cpuinfo | grep Raspberry", shell=True, stdout=subprocess.PIPE)
     else:
@@ -23,11 +25,10 @@ def display():
         epd = epd7in5_V2.EPD()
         epd.init()
         epd.Clear()
-        epd.display(create_image())
+        epd.display(epd.getbuffer(display_output))
         epd.sleep()
     else:
-        output = create_image()
-        output.show()
+        display_output.show()
 
 
 def create_image():
