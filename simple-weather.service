@@ -1,0 +1,10 @@
+[Unit]
+Description=simple weather update service
+
+[Service]
+Type=oneshot
+WorkingDirectory=%h/simple_weather_waveshare/
+ExecStart=%h/simple_weather_waveshare/venv/bin/python3 %h/simple_weather_waveshare/main.py
+
+[Install]
+WantedBy=default.target

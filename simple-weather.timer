@@ -1,0 +1,9 @@
+[Unit]
+Description=Simple weather timer
+
+[Timer]
+OnCalendar=*:0/1
+Unit=simple-weather.service
+
+[Install]
+WantedBy=timers.target
