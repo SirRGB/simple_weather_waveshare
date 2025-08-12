@@ -24,6 +24,11 @@ venv/bin/pip3 install -r requirements.txt
 sudo raspi-config nonint do_spi 0  #This enables SPI
 sudo reboot
 ```
+Customize configs
+```
+cp ${HOME}/simple_weather_waveshare/config.ini.example ${HOME}/simple_weather_waveshare/config.ini
+nano ${HOME}/simple_weather_waveshare/config.ini
+```
 
 
 Shedule using SystemD (prefered)
@@ -50,7 +55,6 @@ Features implemented so far:
 
 ToDo:
 - Display weather data
-- Read data from config.ini
 - Partial/fast refresh
 - Only refresh when certain bt devices are near
 
