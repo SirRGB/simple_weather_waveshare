@@ -8,3 +8,6 @@ def get_date():
 
 def get_weekday():
     return str(datetime.now().strftime("%A\n"))
+
+def get_minute():
+    return datetime.now().minute

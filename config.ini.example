@@ -1,3 +1,6 @@
 [Weather]
 latitude = 52.52
 longitude = 13.41
+
+[Display]
+full_refresh = 3

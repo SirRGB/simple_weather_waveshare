@@ -15,3 +15,6 @@ def get_latitude():
 
 def get_longitude():
     return read_config().getfloat('Weather', 'longitude')
+
+def get_full_refresh():
+    return read_config().getint('Display', 'full_refresh')

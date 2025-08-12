@@ -4,7 +4,8 @@ import sys
 
 from PIL import Image, ImageDraw, ImageFont
 
-from clock import get_clock, get_date, get_weekday
+from clock import get_clock, get_date, get_weekday, get_minute
+from parse_config import get_full_refresh
 
 screen_height, screen_length = 480, 800
 
@@ -23,7 +24,10 @@ def display():
         from lib import epd7in5_V2
 
         epd = epd7in5_V2.EPD()
-        epd.init()
+        if get_minute() % get_full_refresh() == 0:
+            epd.init()
+        else:
+            epd.init_fast()
         epd.Clear()
         epd.display(epd.getbuffer(display_output))
         epd.sleep()
