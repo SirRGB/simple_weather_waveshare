@@ -40,7 +40,7 @@ def create_image():
     out = Image.new(mode="RGB", size=(screen_length, screen_height), color=(255, 255, 255))
 
     # get a font
-    fnt = ImageFont.truetype(font=f"{os.path.dirname(__file__)}/fonts/InterVariable.ttf", size=65)
+    fnt = ImageFont.truetype(font=f"{os.path.dirname(__file__)}/fonts/InterVariable.ttf", size=85)
     # get a drawing context
     d = ImageDraw.Draw(im=out)
 
