@@ -55,8 +55,9 @@ Features implemented so far:
 
 ToDo:
 - Display weather data
-- Partial/fast refresh
+- [Partial/fast refresh](https://github.com/waveshareteam/e-Paper/blob/master/RaspberryPi_JetsonNano/python/lib/waveshare_epd/epd7in5_V2.py)
 - Only refresh when certain bt devices are near
+- [Ruuvi Tag support](https://github.com/sevesalm/eInk-weather-display/blob/master/eInk-weather-display/sensor_data.py)
 
 Credits
 - [sevesalm/eInk-weather-display](https://github.com/sevesalm/eInk-weather-display)
