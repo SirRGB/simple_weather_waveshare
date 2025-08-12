@@ -1,8 +1,32 @@
 A simple weather display for the waveshare 7.5" V2 model
 --
+This project is still in early progress, so dont expect full support just yet.
 
 
-Using SystemD (prefered)
+Initial Setup  
+--
+
+Install git and configure user if needed  
+This guides assumes you are running a Debian based distro  
+like Raspberry Pi OS (Lite) with GPIO support
+```
+cd ${HOME}
+sudo apt update && sudo apt upgrade
+sudo apt install git
+git clone https://github.com/SirRGB/simple_weather_waveshare.git
+```
+Enable GPIO and install Python dependencies
+```
+cd ${HOME}/simple_weather_waveshare
+sudo apt install python3 python3-venv
+python3 -m venv venv
+venv/bin/pip3 install -r requirements.txt
+sudo raspi-config nonint do_spi 0  #This enables SPI
+sudo reboot
+```
+
+
+Shedule using SystemD (prefered)
 ```
 mkdir -p ~/.config/systemd/user/
 cp simple-weather.* ~/.config/systemd/user/
@@ -11,11 +35,11 @@ systemctl --user enable simple-weather.timer
 loginctl enable-linger
 ```
 
-Using crontab
+... or using crontab
 ```
 crontab -e
 ```
-and then enter
+and then enter (adjust to your home directory if needed)
 ```
 * * * * * /home/pi/simple_weather_waveshare/main.py
 ```
