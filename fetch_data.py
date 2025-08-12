@@ -4,7 +4,7 @@ from retry_requests import retry
 
 from parse_config import get_latitude, get_longitude, get_timezone
 
-def get_weather_data():
+def get_weather_data() -> list:
     # Set up the Open-Meteo API client with cache and retry on error
     cache_session = requests_cache.CachedSession('.cache', expire_after = 3600)
     retry_session = retry(cache_session, retries = 5, backoff_factor = 0.2)
