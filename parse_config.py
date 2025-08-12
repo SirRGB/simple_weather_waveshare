@@ -18,3 +18,6 @@ def get_longitude():
 
 def get_full_refresh():
     return read_config().getint('Display', 'full_refresh')
+
+def get_timezone():
+    return read_config().get('Weather', 'timezone')

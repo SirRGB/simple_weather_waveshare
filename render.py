@@ -4,7 +4,8 @@ import sys
 
 from PIL import Image, ImageDraw, ImageFont
 
-from clock import get_clock, get_date, get_weekday, get_minute
+from clock import get_clock, get_date, get_minute
+from fetch_data import get_weather_data
 from parse_config import get_full_refresh
 
 screen_height, screen_length = 480, 800
@@ -40,13 +41,33 @@ def create_image():
     out = Image.new(mode="RGB", size=(screen_length, screen_height), color=(255, 255, 255))
 
     # get a font
-    fnt = ImageFont.truetype(font=f"{os.path.dirname(__file__)}/fonts/InterVariable.ttf", size=85)
+    fnt = ImageFont.truetype(font=f"{os.path.dirname(__file__)}/fonts/InterVariable.ttf", size=55)
     # get a drawing context
     d = ImageDraw.Draw(im=out)
 
     # draw date and clock
-    text = f"{get_weekday()}{get_date()}{get_clock()}"
+    text = f"{get_date()}"
+    d.multiline_text(xy=(screen_length / 2, screen_height / 4), text=text,
+                 font=fnt, fill=(0, 0, 0), anchor="mm")
+
+
+    fnt = ImageFont.truetype(font=f"{os.path.dirname(__file__)}/fonts/InterVariable.ttf", size=95)
+    text = f"{get_clock()}"
     d.multiline_text(xy=(screen_length / 2, screen_height / 2), text=text,
                      font=fnt, fill=(0, 0, 0), anchor="mm")
+
+
+    fnt = ImageFont.truetype(font=f"{os.path.dirname(__file__)}/fonts/InterVariable.ttf", size=35)
+    weather = get_weather_data()
+    text = f""
+    for i in range(len(weather[0])):
+        text += f"{weather[0][i]} "
+
+    text += "\n"
+    for i in range(len(weather[1])):
+        text += f"{weather[1][i]} "
+
+    d.multiline_text(xy=(screen_length / 2, screen_height / 2 + screen_height / 4), text=text,
+                 font=fnt, fill=(0, 0, 0), anchor="mm")
 
     return out

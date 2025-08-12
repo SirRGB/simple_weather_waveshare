@@ -1,6 +1,7 @@
 [Weather]
 latitude = 52.52
 longitude = 13.41
+timezone = Europe/Berlin
 
 [Display]
 full_refresh = 3
