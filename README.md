@@ -1,6 +1,14 @@
 A simple weather display for the waveshare 7.5" V2 model
 --
 
+```
+mkdir -p ~/.config/systemd/user/
+cp simple-weather.* ~/.config/systemd/user/
+systemctl --user daemon-reload
+systemctl --user enable simple-weather.timer
+loginctl enable-linger
+```
+
 Features implemented so far:
 - Clock and date functionality
 - Minutely refresh using systemd timer
