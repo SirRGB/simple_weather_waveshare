@@ -1,12 +1,23 @@
 A simple weather display for the waveshare 7.5" V2 model
 --
 
+
+Using SystemD (prefered)
 ```
 mkdir -p ~/.config/systemd/user/
 cp simple-weather.* ~/.config/systemd/user/
 systemctl --user daemon-reload
 systemctl --user enable simple-weather.timer
 loginctl enable-linger
+```
+
+Using crontab
+```
+crontab -e
+```
+and then enter
+```
+* * * * * /home/pi/simple_weather_waveshare/main.py
 ```
 
 Features implemented so far:
