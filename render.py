@@ -76,7 +76,7 @@ def create_image():
     weather_data = get_weather_data()
     weather_text = ""
     for i in range(len(weather_data[0])):
-        weather_text += f"{weather_data[0][i]}".center(7)
+        weather_text += f"{weather_data[0][i]}".center(8)
 
     weather_text += "\n"
     for i in range(len(weather_data[1])):
