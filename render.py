@@ -1,3 +1,4 @@
+import logging
 import os
 import subprocess
 import sys
@@ -7,6 +8,9 @@ from PIL import Image, ImageDraw, ImageFont
 from fetch_clock import get_clock, get_date, get_minute
 from fetch_weather_data import get_weather_data
 from parse_config import get_full_refresh
+
+logger = logging.getLogger(__name__)
+logging.basicConfig(filename='debug.log', format='%(asctime)s %(message)s', level=logging.DEBUG)
 
 screen_height, screen_length = 480, 800
 
@@ -22,18 +26,23 @@ def display():
         output = output.decode(sys.stdout.encoding)
 
     if "Raspberry" in output:
+        logger.info("Running on Raspberry")
         from lib import epd7in5_V2
 
         epd = epd7in5_V2.EPD()
         if get_minute() % get_full_refresh() == 0:
+            logger.info("Doing full refresh")
             epd.init()
         else:
+            logger.info("Doing partial refresh")
             epd.init_fast()
         epd.Clear()
         epd.display(epd.getbuffer(display_output))
         epd.sleep()
     else:
+        logger.info("Running on PC")
         display_output.show()
+    logger.info("Completed successfully")
 
 
 def create_image():
@@ -48,28 +57,28 @@ def create_image():
     d = ImageDraw.Draw(im=out)
 
     # draw date and clock
-    text = f"{get_date()}"
-    d.multiline_text(xy=(screen_length / 2, screen_height / 4), text=text,
+    date_text = f"{get_date()}"
+    d.multiline_text(xy=(screen_length / 2, screen_height / 4), text=date_text,
                  font=date_font, fill=(0, 0, 0), anchor="mm")
 
 
     clock_font = ImageFont.truetype(font=font_path, size=95)
-    text = f"{get_clock()}"
-    d.multiline_text(xy=(screen_length / 2, screen_height / 2), text=text,
+    clock_text = f"{get_clock()}"
+    d.multiline_text(xy=(screen_length / 2, screen_height / 2), text=clock_text,
                      font=clock_font, fill=(0, 0, 0), anchor="mm")
 
 
     weather_font = ImageFont.truetype(font=font_path, size=35)
-    weather = get_weather_data()
-    text = ""
-    for i in range(len(weather[0])):
-        text += f"{weather[0][i]}".center(9)
+    weather_data = get_weather_data()
+    weather_text = ""
+    for i in range(len(weather_data[0])):
+        weather_text += f"{weather_data[0][i]}".center(7)
 
-    text += "\n"
-    for i in range(len(weather[1])):
-        text += f"{weather[1][i]}".center(10)
+    weather_text += "\n"
+    for i in range(len(weather_data[1])):
+        weather_text += f"{weather_data[1][i]}".center(8)
 
-    d.multiline_text(xy=(screen_length / 2, screen_height / 2 + screen_height / 4), text=text,
+    d.multiline_text(xy=(screen_length / 2, screen_height / 2 + screen_height / 4), text=weather_text,
                  font=weather_font, fill=(0, 0, 0), anchor="mm")
 
     return out
