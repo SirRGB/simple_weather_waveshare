@@ -37,27 +37,29 @@ def display():
 
 
 def create_image():
+    font_path = f"{os.path.dirname(__file__)}/fonts/InterVariable.ttf"
+
     # create an image
     out = Image.new(mode="RGB", size=(screen_length, screen_height), color=(255, 255, 255))
 
     # get a font
-    fnt = ImageFont.truetype(font=f"{os.path.dirname(__file__)}/fonts/InterVariable.ttf", size=55)
+    date_font = ImageFont.truetype(font=font_path, size=55)
     # get a drawing context
     d = ImageDraw.Draw(im=out)
 
     # draw date and clock
     text = f"{get_date()}"
     d.multiline_text(xy=(screen_length / 2, screen_height / 4), text=text,
-                 font=fnt, fill=(0, 0, 0), anchor="mm")
+                 font=date_font, fill=(0, 0, 0), anchor="mm")
 
 
-    fnt = ImageFont.truetype(font=f"{os.path.dirname(__file__)}/fonts/InterVariable.ttf", size=95)
+    clock_font = ImageFont.truetype(font=font_path, size=95)
     text = f"{get_clock()}"
     d.multiline_text(xy=(screen_length / 2, screen_height / 2), text=text,
-                     font=fnt, fill=(0, 0, 0), anchor="mm")
+                     font=clock_font, fill=(0, 0, 0), anchor="mm")
 
 
-    fnt = ImageFont.truetype(font=f"{os.path.dirname(__file__)}/fonts/InterVariable.ttf", size=35)
+    weather_font = ImageFont.truetype(font=font_path, size=35)
     weather = get_weather_data()
     text = ""
     for i in range(len(weather[0])):
@@ -68,6 +70,6 @@ def create_image():
         text += f"{weather[1][i]}".center(10)
 
     d.multiline_text(xy=(screen_length / 2, screen_height / 2 + screen_height / 4), text=text,
-                 font=fnt, fill=(0, 0, 0), anchor="mm")
+                 font=weather_font, fill=(0, 0, 0), anchor="mm")
 
     return out
