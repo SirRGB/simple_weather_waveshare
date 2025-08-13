@@ -4,6 +4,7 @@ import subprocess
 import sys
 
 from PIL import Image, ImageDraw, ImageFont
+from timeit import default_timer as timer
 
 from fetch_clock import get_clock, get_date, get_minute
 from fetch_weather_data import get_weather_data
@@ -15,6 +16,8 @@ logging.basicConfig(filename='debug.log', format='%(asctime)s %(message)s', leve
 screen_height, screen_length = 480, 800
 
 def display():
+    start_time = timer()
+
     display_output = create_image()
 
     if sys.version_info[0] == 2:
@@ -42,7 +45,8 @@ def display():
     else:
         logger.info("Running on PC")
         display_output.show()
-    logger.info("Completed successfully")
+    elapsed_time = timer() - start_time
+    logger.info(f"Completed successfully in {elapsed_time}")
 
 
 def create_image():

@@ -33,7 +33,7 @@ def get_weather_data() -> list:
     hourly_rain = [f"{current.Variables(1).Value():02.1f}"]
 
     for time in range(5):
-         # [value] [time]
+        # [value] [time]
         hourly_temp.append(f"{response.Hourly().Variables(0).Values(time):02.1f}")
         hourly_rain.append(f"{response.Hourly().Variables(1).Values(time):02.1f}")
 
