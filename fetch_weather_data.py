@@ -29,12 +29,12 @@ def get_weather_data() -> list:
 
     # Process current data. The order of variables needs to be the same as requested.
     current = response.Current()
-    hourly_temp = [f"{current.Variables(0).Value():.1f}"]
-    hourly_rain = [f"{current.Variables(1).Value():.1f}"]
+    hourly_temp = [f"{current.Variables(0).Value():02.1f}"]
+    hourly_rain = [f"{current.Variables(1).Value():02.1f}"]
 
     for time in range(5):
          # [value] [time]
-        hourly_temp.append(f"{response.Hourly().Variables(0).Values(time):.1f}")
-        hourly_rain.append(f"{response.Hourly().Variables(1).Values(time):.1f}")
+        hourly_temp.append(f"{response.Hourly().Variables(0).Values(time):02.1f}")
+        hourly_rain.append(f"{response.Hourly().Variables(1).Values(time):02.1f}")
 
     return [hourly_temp, hourly_rain]
