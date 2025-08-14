@@ -12,13 +12,15 @@ def read_config() -> ConfigParser:
     return config
 
 def get_latitude() -> str:
-    return f"{read_config().getfloat('Weather', 'latitude')}"
+    return f"{config_file.getfloat('Weather', 'latitude')}"
 
 def get_longitude() -> str:
-    return f"{read_config().getfloat('Weather', 'longitude')}"
+    return f"{config_file.getfloat('Weather', 'longitude')}"
 
 def get_full_refresh() -> str:
-    return f"{read_config().getint('Display', 'full_refresh')}"
+    return f"{config_file.getint('Display', 'full_refresh')}"
 
 def get_timezone() -> str:
-    return f"{read_config().get('Weather', 'timezone')}"
+    return f"{config_file.get('Weather', 'timezone')}"
+
+config_file = read_config()
