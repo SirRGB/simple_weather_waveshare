@@ -4,17 +4,18 @@ import sys
 
 from timeit import default_timer as timer
 
-from display_layout import create_image
+from display_layout import Display
 from fetch_clock import get_minute
 from parse_config import get_full_refresh
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(filename='debug.log', format='%(asctime)s %(message)s', level=logging.DEBUG)
 
-def display():
+def refresh():
     start_time = timer()
 
-    display_output = create_image()
+    display = Display()
+    display_output = display.get_weather_display()
 
     if sys.version_info[0] == 2:
         process = subprocess.Popen("cat /proc/cpuinfo | grep Raspberry", shell=True, stdout=subprocess.PIPE)
