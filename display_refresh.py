@@ -4,8 +4,8 @@ import sys
 from timeit import default_timer as timer
 
 from clock_layout import ClockLayout
+from configs.parse_config import get_full_refresh, get_display_target
 from fetch_clock import get_minute
-from parse_config import get_full_refresh, get_display_target
 from weather_layout import WeatherLayout
 
 logger = logging.getLogger(__name__)

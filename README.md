@@ -26,8 +26,8 @@ sudo reboot
 ```
 Customize configs
 ```
-cp ${HOME}/simple_weather_waveshare/config.ini.example ${HOME}/simple_weather_waveshare/config.ini
-nano ${HOME}/simple_weather_waveshare/config.ini
+cp ${HOME}/simple_weather_waveshare/configs/config.ini.example ${HOME}/simple_weather_waveshare/configs/config.ini
+nano ${HOME}/simple_weather_waveshare/configs/config.ini
 ```
 
 
