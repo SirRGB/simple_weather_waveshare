@@ -4,7 +4,10 @@ def get_clock() -> str:
     return f"{datetime.now().hour}:{datetime.now().minute:02}"
 
 def get_date() -> str:
-    return str(datetime.now().strftime("%A, %d. %B"))
+    return f"{datetime.now().strftime('%d. %B')}"
+
+def get_weekday() -> str:
+    return f"{datetime.now().strftime('%A')}"
 
 def get_minute() -> str:
     return f"{datetime.now().minute}"

@@ -23,4 +23,7 @@ def get_full_refresh() -> str:
 def get_timezone() -> str:
     return f"{config_file.get('Weather', 'timezone')}"
 
+def get_display_target() -> str:
+    return f"{config_file.get('Display', 'display_target')}"
+
 config_file = read_config()
