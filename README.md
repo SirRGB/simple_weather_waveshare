@@ -11,7 +11,7 @@ Install git and configure user if needed.
 sudo apt update && sudo apt upgrade
 sudo apt install git
 ```
-This guides assumes you are running a Debian based distro like Raspberry Pi OS (Lite) with GPIO support
+This guides assumes you are running a Debian based distro like Raspberry Pi OS (Lite) with the user `pi` and GPIO support
 ```
 git clone https://github.com/SirRGB/simple_weather_waveshare.git ${HOME}/simple_weather_waveshare
 ```
