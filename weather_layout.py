@@ -1,10 +1,12 @@
+from PIL.Image import Image
+
 from display_layout_interface import DisplayInterface
 from fetch_clock import get_date, get_clock, get_weekday
 from fetch_weather_data import get_weather_data
 
 
 class WeatherLayout(DisplayInterface):
-    def get_display_output(self):
+    def get_display_output(self) -> Image:
         # draw date and clock
         date_text = f"{get_weekday()}, {get_date()}"
         self.d.multiline_text(xy=(self.screen_length / 2, self.screen_height / 4), text=date_text,

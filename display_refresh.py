@@ -11,7 +11,7 @@ from weather_layout import WeatherLayout
 logger = logging.getLogger(__name__)
 logging.basicConfig(filename='debug.log', format='%(asctime)s %(message)s', level=logging.DEBUG)
 
-def refresh():
+def refresh() -> None:
     start_time = timer()
 
     if get_display_target() == "weather":
