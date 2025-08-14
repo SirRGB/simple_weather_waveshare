@@ -5,4 +5,4 @@ timezone = Europe/Berlin
 
 [Display]
 full_refresh = 3
-display_target = weather
+display_target = clock
