@@ -17,10 +17,9 @@ git clone https://github.com/SirRGB/simple_weather_waveshare.git
 ```
 Enable GPIO and install Python dependencies
 ```
-cd ${HOME}/simple_weather_waveshare
 sudo apt install python3 python3-venv
-python3 -m venv venv
-venv/bin/pip3 install -r requirements.txt
+python3 -m venv ${HOME}/simple_weather_waveshare/venv
+${HOME}/simple_weather_waveshare/venv/bin/pip3 install -r ${HOME}/simple_weather_waveshare/configs/requirements.txt
 sudo raspi-config nonint do_spi 0  #This enables SPI
 sudo reboot
 ```
