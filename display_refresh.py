@@ -15,8 +15,10 @@ def refresh() -> None:
     start_time = timer()
 
     if get_display_target() == "weather":
+        logger.info("Targeting weather")
         display_output = WeatherLayout().get_display_output()
     else:
+        logger.info("Targeting clock")
         display_output = ClockLayout().get_display_output()
 
     if sys.version_info[0] == 2:
@@ -45,4 +47,4 @@ def refresh() -> None:
         logger.info("Running on PC")
         display_output.show()
     elapsed_time = timer() - start_time
-    logger.info(f"Completed successfully in {elapsed_time}")
+    logger.info(f"Completed successfully in {elapsed_time:.3f}")

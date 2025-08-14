@@ -46,7 +46,7 @@ crontab -e
 ```
 and then enter (adjust to your home directory if needed)
 ```
-* * * * * /home/pi/simple_weather_waveshare/main.py
+* * * * * /home/pi/simple_weather_waveshare/venv/bin/python3 /home/pi/simple_weather_waveshare/main.py
 ```
 
 Features implemented so far:
