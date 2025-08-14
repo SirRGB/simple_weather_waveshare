@@ -1,8 +1,8 @@
 from PIL.Image import Image
 
-from display_layout_interface import DisplayInterface
-from fetch_clock import get_date, get_clock, get_weekday
-from fetch_weather_data import get_weather_data
+from layout.display_layout_interface import DisplayInterface
+from data.fetch_clock import get_date, get_clock, get_weekday
+from data.fetch_weather_data import get_weather_data
 
 
 class WeatherLayout(DisplayInterface):

@@ -1,7 +1,7 @@
 from PIL.Image import Image
 
-from display_layout_interface import DisplayInterface
-from fetch_clock import get_clock, get_date, get_weekday
+from layout.display_layout_interface import DisplayInterface
+from data.fetch_clock import get_clock, get_date, get_weekday
 
 
 class ClockLayout(DisplayInterface):

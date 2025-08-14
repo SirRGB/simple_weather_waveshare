@@ -8,7 +8,7 @@ class DisplayInterface:
     def __init__(self, screen_height:int=480, screen_length:int=800) -> None:
         self.screen_height = screen_height
         self.screen_length = screen_length
-        self.font_path = f"{os.path.dirname(__file__)}/fonts/InterVariable.ttf"
+        self.font_path = f"{os.path.dirname(__file__)}/../fonts/InterVariable.ttf"
 
         # create an image
         self.out = Image.new(mode="RGB", size=(screen_length, screen_height), color=(255, 255, 255))

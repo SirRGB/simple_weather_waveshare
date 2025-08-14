@@ -3,10 +3,10 @@ import subprocess
 import sys
 from timeit import default_timer as timer
 
-from clock_layout import ClockLayout
+from layout.clock_layout import ClockLayout
 from configs.parse_config import get_full_refresh, get_display_target
-from fetch_clock import get_minute
-from weather_layout import WeatherLayout
+from data.fetch_clock import get_minute
+from layout.weather_layout import WeatherLayout
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(filename='debug.log', format='%(asctime)s %(message)s', level=logging.DEBUG)
