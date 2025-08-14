@@ -31,10 +31,10 @@ nano ${HOME}/simple_weather_waveshare/config.ini
 ```
 
 
-Shedule using SystemD (prefered)
+Schedule using SystemD (prefered)
 ```
 mkdir -p ~/.config/systemd/user/
-cp simple-weather.* ~/.config/systemd/user/
+cp ${HOME}/simple_weather_waveshare/configs/simple-weather.* ${HOME}/.config/systemd/user/
 systemctl --user daemon-reload
 systemctl --user enable simple-weather.timer
 loginctl enable-linger
