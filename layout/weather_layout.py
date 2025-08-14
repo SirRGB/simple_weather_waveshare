@@ -27,7 +27,7 @@ class WeatherLayout(DisplayInterface):
         for i in range(len(weather_data[1])):
             weather_text += f"{weather_data[1][i]:^8}"
 
-        self.d.multiline_text(xy=(self.screen_length / 2, self.screen_height / 2 + self.screen_height / 4), text=weather_text,
-                              font=self.get_font(35), fill=(0, 0, 0), anchor="mm")
+        self.d.multiline_text(xy=(self.screen_length / 2, self.screen_height / 2 + self.screen_height / 4),
+                              text=weather_text, font=self.get_font(35), fill=(0, 0, 0), anchor="mm")
 
         return self.out

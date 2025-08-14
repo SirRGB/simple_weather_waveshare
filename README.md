@@ -6,14 +6,14 @@ This project is still in early progress, so dont expect full support just yet.
 Initial Setup  
 --
 
-Install git and configure user if needed  
-This guides assumes you are running a Debian based distro  
-like Raspberry Pi OS (Lite) with GPIO support
+Install git and configure user if needed.  
 ```
-cd ${HOME}
 sudo apt update && sudo apt upgrade
 sudo apt install git
-git clone https://github.com/SirRGB/simple_weather_waveshare.git
+```
+This guides assumes you are running a Debian based distro like Raspberry Pi OS (Lite) with GPIO support
+```
+git clone https://github.com/SirRGB/simple_weather_waveshare.git ${HOME}/simple_weather_waveshare
 ```
 Enable GPIO and install Python dependencies
 ```
