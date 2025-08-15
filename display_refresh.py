@@ -15,12 +15,10 @@ logging.basicConfig(filename='debug.log', format='%(asctime)s %(message)s', leve
 def refresh() -> None:
     start_time = timer()
 
-    if get_display_target() == "weather":
-        logger.info("Targeting weather")
-        display_output = WeatherLayout().get_display_output()
-    else:
-        logger.info("Targeting clock")
-        display_output = ClockLayout().get_display_output()
+    start_render_time = timer()
+    display_output = generate_output()
+    elapsed_render_time = timer() - start_render_time
+    logger.info(f"Rendered in {elapsed_render_time:.3f}")
 
     if sys.version_info[0] == 2:
         process = subprocess.Popen("cat /proc/cpuinfo | grep Raspberry", shell=True, stdout=subprocess.PIPE)
@@ -32,16 +30,7 @@ def refresh() -> None:
 
     if "Raspberry" in output:
         logger.info("Running on Raspberry")
-        from lib import epd7in5_V2
-
-        epd = epd7in5_V2.EPD()
-        if get_minute() % get_full_refresh() == 0:
-            logger.info("Doing full refresh")
-            epd.init()
-        else:
-            logger.info("Doing fast refresh")
-            epd.init_fast()
-        epd.Clear()
+        epd = init_eink_refresh()
         epd.display(epd.getbuffer(display_output))
         epd.sleep()
     else:
@@ -49,3 +38,26 @@ def refresh() -> None:
         display_output.show()
     elapsed_time = timer() - start_time
     logger.info(f"Completed successfully in {elapsed_time:.3f}")
+
+
+def generate_output():
+    if get_display_target() == "weather":
+        logger.info("Targeting weather")
+        display_output = WeatherLayout().get_display_output()
+    else:
+        logger.info("Targeting clock")
+        display_output = ClockLayout().get_display_output()
+    return display_output
+
+
+def init_eink_refresh():
+    from lib import epd7in5_V2
+    epd = epd7in5_V2.EPD()
+    if get_minute() % get_full_refresh() == 0:
+        logger.info("Doing full refresh")
+        epd.init()
+    else:
+        logger.info("Doing fast refresh")
+        epd.init_fast()
+    epd.Clear()
+    return epd
