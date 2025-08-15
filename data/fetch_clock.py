@@ -9,5 +9,5 @@ def get_date() -> str:
 def get_weekday() -> str:
     return f"{datetime.now().strftime('%A')}"
 
-def get_minute() -> str:
-    return f"{datetime.now().minute}"
+def get_minute() -> int:
+    return datetime.now().minute

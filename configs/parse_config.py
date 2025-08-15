@@ -11,8 +11,8 @@ def read_config() -> ConfigParser:
 
     return config
 
-def get_full_refresh() -> str:
-    return f"{config_file.getint('Display', 'full_refresh')}"
+def get_full_refresh() -> int:
+    return config_file.getint('Display', 'full_refresh')
 
 def get_display_target() -> str:
     return f"{config_file.get('Display', 'display_target')}"
