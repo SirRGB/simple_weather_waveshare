@@ -19,7 +19,7 @@ Enable GPIO and install Python dependencies
 ```
 sudo apt install python3 python3-venv
 python3 -m venv ${HOME}/simple_weather_waveshare/venv
-${HOME}/simple_weather_waveshare/venv/bin/pip3 install -r ${HOME}/simple_weather_waveshare/configs/requirements.txt
+${HOME}/simple_weather_waveshare/venv/bin/pip3 install -r ${HOME}/simple_weather_waveshare/configs/requirements.txt -r ${HOME}/simple_weather_waveshare/configs/requirements_pi.txt
 sudo raspi-config nonint do_spi 0  #This enables SPI
 sudo reboot
 ```
@@ -47,6 +47,16 @@ crontab -e
 and then enter (adjust to your home directory if needed)
 ```
 * * * * * /home/pi/simple_weather_waveshare/venv/bin/python3 /home/pi/simple_weather_waveshare/main.py
+```
+
+
+Testing locally
+```
+git clone https://github.com/SirRGB/simple_weather_waveshare.git
+cd ./simple_weather_waveshare
+python3 -m venv venv
+venv/bin/pip3 install -r ${HOME}/simple_weather_waveshare/configs/requirements.txt
+venv/bin/python3 main.py
 ```
 
 Features implemented so far:

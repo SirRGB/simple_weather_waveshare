@@ -4,15 +4,12 @@ certifi==2026.1.4
 charset-normalizer==3.4.4
 colorzero==2.0
 flatbuffers==25.9.23
-gpiozero==2.0.1
 h11==0.16.0
 idna==3.11
 jh2==5.0.10
-lgpio==0.2.2.0
 niquests==3.16.1
 openmeteo_requests==1.7.4
 openmeteo_sdk==1.23.0
-pigpio==1.78
 pillow==12.1.0
 platformdirs==4.5.1
 python-dateutil==2.9.0.post0

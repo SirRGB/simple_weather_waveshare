@@ -9,7 +9,7 @@ from data.fetch_clock import get_minute
 from layout.weather_layout import WeatherLayout
 
 logger = logging.getLogger(__name__)
-logging.basicConfig(filename='debug.log', format='%(asctime)s %(message)s', level=logging.DEBUG)
+logging.basicConfig(filename='debug.log', format='%(asctime)s %(message)s', level=logging.WARNING)
 
 
 def refresh() -> None:
