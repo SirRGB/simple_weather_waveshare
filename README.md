@@ -36,6 +36,7 @@ mkdir -p ~/.config/systemd/user/
 cp ${HOME}/simple_weather_waveshare/configs/simple-weather.* ${HOME}/.config/systemd/user/
 systemctl --user daemon-reload
 systemctl --user enable simple-weather.timer
+systemctl --user start simple-weather.timer
 loginctl enable-linger
 ```
 
