@@ -7,5 +7,5 @@ venv
 __pycache__
 .cache*
 
-config.ini
+configs/config.ini
 *.log
