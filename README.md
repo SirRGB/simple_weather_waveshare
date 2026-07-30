@@ -18,8 +18,9 @@ git clone https://github.com/SirRGB/simple_weather_waveshare.git ${HOME}/simple_
 Enable GPIO and install Python dependencies
 ```
 sudo apt install python3 python3-venv python3-dev swig liblgpio-dev
-python3 -m venv ${HOME}/simple_weather_waveshare/venv
-${HOME}/simple_weather_waveshare/venv/bin/pip3 install -r ${HOME}/simple_weather_waveshare/configs/requirements.txt -r ${HOME}/simple_weather_waveshare/configs/requirements_pi.txt
+curl -LsSf https://astral.sh/uv/install.sh | sh
+cd ${HOME}/simple_weather_waveshare
+uv sync --all-groups
 sudo raspi-config nonint do_spi 0  #This enables SPI
 sudo reboot
 ```
@@ -32,7 +33,7 @@ nano ${HOME}/simple_weather_waveshare/configs/config.ini
 
 Schedule using SystemD (prefered)
 ```
-mkdir -p ~/.config/systemd/user/
+mkdir -p ${HOME}/.config/systemd/user/
 cp ${HOME}/simple_weather_waveshare/configs/simple-weather.* ${HOME}/.config/systemd/user/
 systemctl --user daemon-reload
 systemctl --user enable --now simple-weather.timer
@@ -45,7 +46,7 @@ crontab -e
 ```
 and then enter (adjust to your home directory if needed)
 ```
-* * * * * /home/pi/simple_weather_waveshare/venv/bin/python3 /home/pi/simple_weather_waveshare/main.py
+* * * * * /home/pi/simple_weather_waveshare/.venv/bin/python3 /home/pi/simple_weather_waveshare/src/simple_weather_waveshare/__init__.py
 ```
 
 
@@ -53,9 +54,9 @@ Testing locally
 ```
 git clone https://github.com/SirRGB/simple_weather_waveshare.git
 cd ./simple_weather_waveshare
-python3 -m venv venv
-venv/bin/pip3 install -r ${HOME}/simple_weather_waveshare/configs/requirements.txt
-venv/bin/python3 main.py
+curl -LsSf https://astral.sh/uv/install.sh | sh
+uv sync
+uv run src/simple_weather_waveshare/__init__.py
 ```
 
 Features implemented so far:

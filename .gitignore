@@ -7,5 +7,5 @@ venv
 __pycache__
 .cache*
 
-configs/config.ini
+src/simple_weather_waveshare/configs/config.ini
 *.log

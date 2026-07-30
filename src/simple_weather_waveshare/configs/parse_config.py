@@ -7,7 +7,7 @@ def read_config() -> ConfigParser:
     config = configparser.ConfigParser()
 
     # Read the configuration file
-    config.read('configs/config.ini')
+    config.read('src/simple_weather_waveshare/configs/config.ini')
 
     return config
 
