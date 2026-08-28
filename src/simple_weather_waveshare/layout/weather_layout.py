@@ -36,12 +36,12 @@ class WeatherLayout(DisplayInterface):
         d2 = ImageDraw.Draw(weather)
 
         legend = 'C°\nmm'
-        d2.multiline_text(xy=(int(self.screen_length / 7), int(self.screen_height / 4)), text=legend,
+        d2.multiline_text(xy=(int(self.screen_length / 8), int(self.screen_height / 4)), text=legend,
                           font=self.get_font(35), fill=(0, 0, 0), anchor="mm")
 
         for i in range(len(hourly_temp)):
             weather_text = f'{hourly_temp[i]}\n{hourly_rain[0]}'
-            d2.multiline_text(xy=(int(self.screen_length / 7 * (i + 2)), int(self.screen_height / 4)),
+            d2.multiline_text(xy=(int(self.screen_length / 8 * (i + 2)), int(self.screen_height / 4)),
                               text=weather_text, font=self.get_font(35), fill=(0, 0, 0), anchor="mm")
 
         self.out.paste(weather, (0, int(self.screen_height / 2)))

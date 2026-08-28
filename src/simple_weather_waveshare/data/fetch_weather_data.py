@@ -22,7 +22,7 @@ def get_weather_data() -> list:
         "hourly": ["temperature_2m", "rain"],
         "timezone": get_timezone(),
         "forecast_days": 1,
-        "forecast_hours": forecast_hours,
+        "forecast_hours": forecast_hours + 1,
     }
     responses = openmeteo.weather_api(url, params=params)
 
@@ -34,7 +34,7 @@ def get_weather_data() -> list:
     hourly_temp = [f"{current.Variables(0).Value():04.1f}"]
     hourly_rain = [f"{current.Variables(1).Value():04.1f}"]
 
-    for time in range(1, forecast_hours):
+    for time in range(1, forecast_hours + 1):
         # [value] [time]
         hourly_temp.append(f"{response.Hourly().Variables(0).Values(time):04.1f}")
         hourly_rain.append(f"{response.Hourly().Variables(1).Values(time):04.1f}")
