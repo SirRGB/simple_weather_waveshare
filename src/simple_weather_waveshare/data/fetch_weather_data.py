@@ -4,11 +4,13 @@ from retry_requests import retry
 
 from configs.parse_config import get_latitude, get_longitude, get_timezone
 
+
 def get_weather_data() -> list:
     # Set up the Open-Meteo API client with cache and retry on error
-    cache_session = requests_cache.CachedSession('.cache', expire_after = 3600)
-    retry_session = retry(cache_session, retries = 5, backoff_factor = 0.2)
-    openmeteo = openmeteo_requests.Client(session = retry_session)
+    cache_session = requests_cache.CachedSession('.cache', expire_after=3600)
+    retry_session = retry(cache_session, retries=5, backoff_factor=0.2)
+    openmeteo = openmeteo_requests.Client(session=retry_session)
+    forecast_hours = 5
 
     # Make sure all required weather variables are listed here
     # The order of variables in hourly or daily is important to assign them correctly below
@@ -20,7 +22,7 @@ def get_weather_data() -> list:
         "hourly": ["temperature_2m", "rain"],
         "timezone": get_timezone(),
         "forecast_days": 1,
-        "forecast_hours": 5,
+        "forecast_hours": forecast_hours,
     }
     responses = openmeteo.weather_api(url, params=params)
 
@@ -32,9 +34,9 @@ def get_weather_data() -> list:
     hourly_temp = [f"{current.Variables(0).Value():04.1f}"]
     hourly_rain = [f"{current.Variables(1).Value():04.1f}"]
 
-    for time in range(5):
+    for time in range(1, forecast_hours):
         # [value] [time]
         hourly_temp.append(f"{response.Hourly().Variables(0).Values(time):04.1f}")
         hourly_rain.append(f"{response.Hourly().Variables(1).Values(time):04.1f}")
 
-    return [hourly_temp, hourly_rain]
+    return hourly_temp, hourly_rain
