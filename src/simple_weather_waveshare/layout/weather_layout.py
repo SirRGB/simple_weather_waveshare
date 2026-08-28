@@ -20,13 +20,13 @@ class WeatherLayout(DisplayInterface):
         d1 = ImageDraw.Draw(time)
 
         # draw date and clock
-        date_text = f"{get_weekday()}, {get_date()}"
-        d1.multiline_text(xy=(self.screen_length / 2, self.screen_height / 9), text=date_text,
-                          font=self.get_font(55), fill=self.black, anchor="mm")
+        date_text = f"{get_weekday()}\n{get_date()}"
+        d1.multiline_text(xy=(self.screen_length / 50, self.screen_height / 7), text=date_text,
+                          font=self.get_font(55), fill=self.black, anchor="lm")
 
         clock_text = f"{get_clock()}"
-        d1.multiline_text(xy=(self.screen_length / 2, self.screen_height / 2.5), text=clock_text,
-                          font=self.get_font(95), fill=self.black, anchor="mm")
+        d1.multiline_text(xy=(self.screen_length / 50, self.screen_height / 2.5), text=clock_text,
+                          font=self.get_font(95), fill=self.black, anchor="lm")
 
         self.out.paste(time, (0, 0))
 
