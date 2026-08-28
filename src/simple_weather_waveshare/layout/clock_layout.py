@@ -12,6 +12,6 @@ class ClockLayout(DisplayInterface):
             text=text,
             font=self.get_font(95),
             fill=self.black,
-            anchor="mm"
+            anchor="mm",
         )
         return self.out

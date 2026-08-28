@@ -8,10 +8,10 @@ from configs.parse_config import get_latitude, get_longitude, get_timezone
 
 
 def get_weather_data() -> list:
-    # Setup the Open-Meteo API client with cache and retry on error
-    cache_session = requests_cache.CachedSession('.cache', expire_after = 3600)
-    retry_session = retry(cache_session, retries = 5, backoff_factor = 0.2)
-    openmeteo = openmeteo_requests.Client(session = retry_session)
+    # Set up the Open-Meteo API client with cache and retry on error
+    cache_session = requests_cache.CachedSession(".cache", expire_after=3600)
+    retry_session = retry(cache_session, retries=5, backoff_factor=0.2)
+    openmeteo = openmeteo_requests.Client(session=retry_session)
     forecast_hours = 6
 
     # Make sure all required weather variables are listed here
@@ -25,7 +25,7 @@ def get_weather_data() -> list:
         "forecast_days": 1,
         "forecast_hours": forecast_hours + 1,
     }
-    responses = openmeteo.weather_api(url, params = params)
+    responses = openmeteo.weather_api(url, params=params)
 
     # Process first location. Add a for-loop for multiple locations or weather models
     response = responses[0]
@@ -35,11 +35,15 @@ def get_weather_data() -> list:
     hourly_temperature_2m = hourly.Variables(0).ValuesAsNumpy()
     hourly_rain = hourly.Variables(1).ValuesAsNumpy()
 
-    hourly_data = {"date": pd.date_range(
-        start=pd.to_datetime(hourly.Time(), unit="s", utc=True),
-        end=pd.to_datetime(hourly.TimeEnd(), unit="s", utc=True),
-        freq=pd.Timedelta(seconds=hourly.Interval()),
-        inclusive="left"
-    ).tz_convert(response.Timezone().decode()), "temperature_2m": hourly_temperature_2m, "rain": hourly_rain}
+    hourly_data = {
+        "date": pd.date_range(
+            start=pd.to_datetime(hourly.Time(), unit="s", utc=True),
+            end=pd.to_datetime(hourly.TimeEnd(), unit="s", utc=True),
+            freq=pd.Timedelta(seconds=hourly.Interval()),
+            inclusive="left",
+        ).tz_convert(response.Timezone().decode()),
+        "temperature_2m": hourly_temperature_2m,
+        "rain": hourly_rain,
+    }
 
     return hourly_data

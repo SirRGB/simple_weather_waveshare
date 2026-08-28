@@ -9,19 +9,16 @@ from data.fetch_weather_data import get_weather_data
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(
-    filename='debug.log',
-    format='%(asctime)s %(message)s',
-    level=logging.DEBUG
+    filename="debug.log", format="%(asctime)s %(message)s", level=logging.DEBUG
 )
 
 
 class WeatherLayout(DisplayInterface):
-
     def get_display_output(self) -> Image:
         time = Image.new(
-            mode='RGB',
+            mode="RGB",
             size=(self.screen_length, int(self.screen_height / 2)),
-            color=self.white
+            color=self.white,
         )
         d1 = ImageDraw.Draw(time)
 
@@ -32,7 +29,7 @@ class WeatherLayout(DisplayInterface):
             text=date_text,
             font=self.get_font(55),
             fill=self.black,
-            anchor="lm"
+            anchor="lm",
         )
 
         clock_text = f"{get_clock()}"
@@ -41,7 +38,7 @@ class WeatherLayout(DisplayInterface):
             text=clock_text,
             font=self.get_font(95),
             fill=self.black,
-            anchor="lm"
+            anchor="lm",
         )
 
         # get and log weather date
@@ -52,8 +49,8 @@ class WeatherLayout(DisplayInterface):
 
         # draw weather data
         current_weather = (
-            f'{hourly_weather_data["temperature_2m"][0]:04.1f}\n'
-            f'{hourly_weather_data["rain"][0]:04.1f}'
+            f"{hourly_weather_data['temperature_2m'][0]:04.1f}\n"
+            f"{hourly_weather_data['rain'][0]:04.1f}"
         )
 
         d1.multiline_text(
@@ -61,39 +58,39 @@ class WeatherLayout(DisplayInterface):
             text=current_weather,
             font=self.get_font(85),
             fill=self.black,
-            anchor="lm"
+            anchor="lm",
         )
 
         self.out.paste(time, (0, 0))
 
         weather = Image.new(
-            mode='RGB',
+            mode="RGB",
             size=(int(self.screen_length), int(self.screen_height / 2)),
-            color=self.white)
+            color=self.white,
+        )
         d2 = ImageDraw.Draw(weather)
 
-        legend = '\nC°\nmm'
+        legend = "\nC°\nmm"
         d2.multiline_text(
             xy=(int(self.screen_length / 8), int(self.screen_height / 4)),
             text=legend,
             font=self.get_font(35),
             fill=self.black,
-            anchor="mm"
+            anchor="mm",
         )
 
         for i in range(1, len(hourly_weather_data["temperature_2m"])):
-            print(i)
             weather_text = (
-                f'{hourly_weather_data["date"][i].strftime("%H")}\n'
-                f'{hourly_weather_data["temperature_2m"][i]:04.1f}\n'
-                f'{hourly_weather_data["rain"][i]:04.1f}'
+                f"{hourly_weather_data['date'][i].strftime('%H')}\n"
+                f"{hourly_weather_data['temperature_2m'][i]:04.1f}\n"
+                f"{hourly_weather_data['rain'][i]:04.1f}"
             )
             d2.multiline_text(
                 xy=(int(self.screen_length / 8 * (i + 1)), int(self.screen_height / 4)),
                 text=weather_text,
                 font=self.get_font(35),
                 fill=self.black,
-                anchor="mm"
+                anchor="mm",
             )
 
         self.out.paste(weather, (0, int(self.screen_height / 2)))

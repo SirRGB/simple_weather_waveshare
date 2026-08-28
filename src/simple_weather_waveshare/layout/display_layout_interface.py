@@ -15,9 +15,7 @@ class DisplayInterface:
 
         # create an image
         self.out = Image.new(
-            mode="RGB",
-            size=(screen_length, screen_height),
-            color=self.black
+            mode="RGB", size=(screen_length, screen_height), color=self.black
         )
 
         # get a drawing context

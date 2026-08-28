@@ -40,11 +40,11 @@ logger = logging.getLogger(__name__)
 
 class RaspberryPi:
     # Pin definition
-    RST_PIN  = 17
-    DC_PIN   = 25
-    CS_PIN   = 8
+    RST_PIN = 17
+    DC_PIN = 25
+    CS_PIN = 8
     BUSY_PIN = 24
-    PWR_PIN  = 18
+    PWR_PIN = 18
     MOSI_PIN = 10
     SCLK_PIN = 11
 
@@ -53,13 +53,11 @@ class RaspberryPi:
         import gpiozero
 
         self.SPI = spidev.SpiDev()
-        self.GPIO_RST_PIN    = gpiozero.LED(self.RST_PIN)
-        self.GPIO_DC_PIN     = gpiozero.LED(self.DC_PIN)
+        self.GPIO_RST_PIN = gpiozero.LED(self.RST_PIN)
+        self.GPIO_DC_PIN = gpiozero.LED(self.DC_PIN)
         # self.GPIO_CS_PIN     = gpiozero.LED(self.CS_PIN)
-        self.GPIO_PWR_PIN    = gpiozero.LED(self.PWR_PIN)
-        self.GPIO_BUSY_PIN   = gpiozero.Button(self.BUSY_PIN, pull_up = False)
-
-
+        self.GPIO_PWR_PIN = gpiozero.LED(self.PWR_PIN)
+        self.GPIO_BUSY_PIN = gpiozero.Button(self.BUSY_PIN, pull_up=False)
 
     def digital_write(self, pin, value):
         if pin == self.RST_PIN:
@@ -119,22 +117,22 @@ class RaspberryPi:
         if cleanup:
             find_dirs = [
                 os.path.dirname(os.path.realpath(__file__)),
-                '/usr/local/lib',
-                '/usr/lib',
+                "/usr/local/lib",
+                "/usr/lib",
             ]
             self.DEV_SPI = None
             for find_dir in find_dirs:
-                val = int(os.popen('getconf LONG_BIT').read())
-                logging.debug("System is %d bit"%val)
+                val = int(os.popen("getconf LONG_BIT").read())
+                logging.debug("System is %d bit" % val)
                 if val == 64:
-                    so_filename = os.path.join(find_dir, 'DEV_Config_64.so')
+                    so_filename = os.path.join(find_dir, "DEV_Config_64.so")
                 else:
-                    so_filename = os.path.join(find_dir, 'DEV_Config_32.so')
+                    so_filename = os.path.join(find_dir, "DEV_Config_32.so")
                 if os.path.exists(so_filename):
                     self.DEV_SPI = CDLL(so_filename)
                     break
             if self.DEV_SPI is None:
-                RuntimeError('Cannot find DEV_Config.so')
+                RuntimeError("Cannot find DEV_Config.so")
 
             self.DEV_SPI.DEV_Module_Init()
 
@@ -163,9 +161,16 @@ class RaspberryPi:
 
 
 if sys.version_info[0] == 2:
-    process = subprocess.Popen("cat /proc/cpuinfo | grep Raspberry", shell=True, stdout=subprocess.PIPE)
+    process = subprocess.Popen(
+        "cat /proc/cpuinfo | grep Raspberry", shell=True, stdout=subprocess.PIPE
+    )
 else:
-    process = subprocess.Popen("cat /proc/cpuinfo | grep Raspberry", shell=True, stdout=subprocess.PIPE, text=True)
+    process = subprocess.Popen(
+        "cat /proc/cpuinfo | grep Raspberry",
+        shell=True,
+        stdout=subprocess.PIPE,
+        text=True,
+    )
 output, _ = process.communicate()
 if sys.version_info[0] == 2:
     output = output.decode(sys.stdout.encoding)
@@ -173,9 +178,9 @@ if sys.version_info[0] == 2:
 if "Raspberry" in output:
     implementation = RaspberryPi()
 else:
-    raise RuntimeError('Not a Raspberry')
+    raise RuntimeError("Not a Raspberry")
 
-for func in [x for x in dir(implementation) if not x.startswith('_')]:
+for func in [x for x in dir(implementation) if not x.startswith("_")]:
     setattr(sys.modules[__name__], func, getattr(implementation, func))
 
 ### END OF FILE ###

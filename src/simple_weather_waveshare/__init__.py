@@ -2,5 +2,5 @@
 
 from display_refresh import refresh
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     refresh()

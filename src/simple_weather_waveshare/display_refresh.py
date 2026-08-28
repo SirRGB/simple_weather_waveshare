@@ -9,7 +9,9 @@ from data.fetch_clock import get_minute
 from layout.weather_layout import WeatherLayout
 
 logger = logging.getLogger(__name__)
-logging.basicConfig(filename='debug.log', format='%(asctime)s %(message)s', level=logging.WARNING)
+logging.basicConfig(
+    filename="debug.log", format="%(asctime)s %(message)s", level=logging.WARNING
+)
 
 
 def refresh() -> None:
@@ -21,9 +23,16 @@ def refresh() -> None:
     logger.info(f"Rendered in {elapsed_render_time:.3f}")
 
     if sys.version_info[0] == 2:
-        process = subprocess.Popen("cat /proc/cpuinfo | grep Raspberry", shell=True, stdout=subprocess.PIPE)
+        process = subprocess.Popen(
+            "cat /proc/cpuinfo | grep Raspberry", shell=True, stdout=subprocess.PIPE
+        )
     else:
-        process = subprocess.Popen("cat /proc/cpuinfo | grep Raspberry", shell=True, stdout=subprocess.PIPE, text=True)
+        process = subprocess.Popen(
+            "cat /proc/cpuinfo | grep Raspberry",
+            shell=True,
+            stdout=subprocess.PIPE,
+            text=True,
+        )
     output, _ = process.communicate()
     if sys.version_info[0] == 2:
         output = output.decode(sys.stdout.encoding)
@@ -42,16 +51,15 @@ def refresh() -> None:
 
 def generate_output():
     if get_display_target() == "weather":
-        logger.info("Targeting weather")
         display_output = WeatherLayout().get_display_output()
     else:
-        logger.info("Targeting clock")
         display_output = ClockLayout().get_display_output()
     return display_output
 
 
 def init_eink_refresh():
     from lib import epd7in5_V2
+
     epd = epd7in5_V2.EPD()
     if get_minute() % get_full_refresh() == 0:
         logger.info("Doing full refresh")
