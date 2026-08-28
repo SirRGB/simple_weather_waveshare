@@ -1,4 +1,6 @@
 import openmeteo_requests
+
+import pandas as pd
 import requests_cache
 from retry_requests import retry
 
@@ -6,10 +8,10 @@ from configs.parse_config import get_latitude, get_longitude, get_timezone
 
 
 def get_weather_data() -> list:
-    # Set up the Open-Meteo API client with cache and retry on error
-    cache_session = requests_cache.CachedSession('.cache', expire_after=3600)
-    retry_session = retry(cache_session, retries=5, backoff_factor=0.2)
-    openmeteo = openmeteo_requests.Client(session=retry_session)
+    # Setup the Open-Meteo API client with cache and retry on error
+    cache_session = requests_cache.CachedSession('.cache', expire_after = 3600)
+    retry_session = retry(cache_session, retries = 5, backoff_factor = 0.2)
+    openmeteo = openmeteo_requests.Client(session = retry_session)
     forecast_hours = 5
 
     # Make sure all required weather variables are listed here
@@ -18,25 +20,26 @@ def get_weather_data() -> list:
     params = {
         "latitude": get_latitude(),
         "longitude": get_longitude(),
-        "current": ["temperature_2m", "rain"],
         "hourly": ["temperature_2m", "rain"],
         "timezone": get_timezone(),
         "forecast_days": 1,
         "forecast_hours": forecast_hours + 1,
     }
-    responses = openmeteo.weather_api(url, params=params)
+    responses = openmeteo.weather_api(url, params = params)
 
     # Process first location. Add a for-loop for multiple locations or weather models
     response = responses[0]
 
-    # Process current data. The order of variables needs to be the same as requested.
-    current = response.Current()
-    hourly_temp = [f"{current.Variables(0).Value():04.1f}"]
-    hourly_rain = [f"{current.Variables(1).Value():04.1f}"]
+    # Process hourly data. The order of variables needs to be the same as requested.
+    hourly = response.Hourly()
+    hourly_temperature_2m = hourly.Variables(0).ValuesAsNumpy()
+    hourly_rain = hourly.Variables(1).ValuesAsNumpy()
 
-    for time in range(1, forecast_hours + 1):
-        # [value] [time]
-        hourly_temp.append(f"{response.Hourly().Variables(0).Values(time):04.1f}")
-        hourly_rain.append(f"{response.Hourly().Variables(1).Values(time):04.1f}")
+    hourly_data = {"date": pd.date_range(
+        start=pd.to_datetime(hourly.Time(), unit="s", utc=True),
+        end=pd.to_datetime(hourly.TimeEnd(), unit="s", utc=True),
+        freq=pd.Timedelta(seconds=hourly.Interval()),
+        inclusive="left"
+    ).tz_convert(response.Timezone().decode()), "temperature_2m": hourly_temperature_2m, "rain": hourly_rain}
 
-    return hourly_temp, hourly_rain
+    return hourly_data

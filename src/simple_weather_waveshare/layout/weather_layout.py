@@ -31,7 +31,7 @@ class WeatherLayout(DisplayInterface):
         self.out.paste(time, (0, 0))
 
         start_fetch_time = timer()
-        hourly_temp, hourly_rain = get_weather_data()
+        hourly_weather_data = get_weather_data()
         elapsed_fetch_time = timer() - start_fetch_time
         logger.info(f"Fetched data in {elapsed_fetch_time:.3f}")
 
@@ -43,15 +43,8 @@ class WeatherLayout(DisplayInterface):
         d2.multiline_text(xy=(int(self.screen_length / 8), int(self.screen_height / 4)), text=legend,
                           font=self.get_font(35), fill=self.black, anchor="mm")
 
-        time_weather = ['Now']
-        for i in range(1, len(hourly_temp) + 1):
-            clock = datetime.now().hour + i
-            if clock >= 24:
-                clock = clock - 24
-            time_weather.append(str(clock))
-
-        for i in range(len(hourly_temp)):
-            weather_text = f'{time_weather[i]}\n{hourly_temp[i]}\n{hourly_rain[i]}'
+        for i in range(len(hourly_weather_data["temperature_2m"])):
+            weather_text = f'{hourly_weather_data["date"][i].strftime("%H")}\n{hourly_weather_data["temperature_2m"][i]:04.1f}\n{hourly_weather_data["rain"][i]:04.1f}'
             d2.multiline_text(xy=(int(self.screen_length / 8 * (i + 2)), int(self.screen_height / 4)),
                               text=weather_text, font=self.get_font(35), fill=self.black, anchor="mm")
 
